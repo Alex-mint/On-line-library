@@ -1,6 +1,7 @@
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from more_itertools import chunked
 from livereload import Server
+import pathlib
 import json
 
 
@@ -12,12 +13,14 @@ def on_reload():
     env = Environment(loader=FileSystemLoader('.'),
                       autoescape=select_autoescape(['html', 'xml']))
     template = env.get_template('template.html')
-    rendered_page = template.render(
-        parsed_books=list(chunked(parsed_books, 2))
-    )
-
-    with open('index.html', 'w', encoding="utf8") as file:
-        file.write(rendered_page)
+    pages_folder = 'pages'
+    for number, parsed_books in enumerate(list(chunked(parsed_books, 20)), 1):
+        rendered_page = template.render(
+            parsed_books=list(chunked(parsed_books, 2))
+        )
+        pathlib.Path(pages_folder).mkdir(parents=True, exist_ok=True)
+        with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
+            file.write(rendered_page)
 
 on_reload()
 
