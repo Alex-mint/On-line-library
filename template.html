@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,6 +11,9 @@
     <title>Hello, world!</title>
   </head>
   <body>
+  {% for books in parsed_books %}
+  <div class="container">
+  <div class="row row-cols-2">
   {% for book in books %}
     <div class="card mb-3" style="max-width: 540px;">
   <div class="row no-gutters">
@@ -27,7 +30,9 @@
   </div>
 </div>
   {% endfor %}
-
+  </div>
+</div>
+  {% endfor %}
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
