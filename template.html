@@ -1,12 +1,11 @@
 <!doctype html>
 <html lang="ru">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Hello, world!</title>
+		<link rel="icon" href="../favicon.png">
   </head>
   <body>
     <div class="container">
@@ -16,45 +15,42 @@
             <a class="page-link" href=../pages/index{{ current_page-1 }}.html tabindex="-1" aria-disabled="true">Назад</a>
           </li>
 
-          {% for page_number in pages_amount %}
-            <li class="page-item {% if page_number == current_page %}active{% endif %}"><a class="page-link" href=../pages/index{{ page_number }}.html>{{ page_number }}</a></li>
-          {% endfor %}
-
-
+            {% for page_number in pages_amount %}
+		          <li class="page-item {% if page_number == current_page %}active{% endif %}"><a class="page-link" href=../pages/index{{ page_number }}.html>{{ page_number }}</a></li>
+            {% endfor %}
             <li class="page-item {% if current_page == pages_amount[-1] %}disabled{% endif %}">
               <a class="page-link" href=../pages/index{{ current_page+1 }}.html tabindex="-1" aria-disabled="true">Вперёд</a>
             </li>
         </ul>
       </nav>
 
-
       {% for books in parsed_books %}
-      <div class="container">
-        <div class="row">
-        {% for book in books %}
-          <div class="col">
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row no-gutters">
-                <div class="col-md-4">
-                  <img src="../images/{{ book.image_url|urlencode }}" class="card-img" alt={{ book.filename }}>
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">{{ book.filename }}</h5>
-                    <p class="card-text">{{ book.author }}</p>
-		                  {% for genre in book.genres %}
-		                    <span class="badge badge-secondary">{{ genre }}</span>
-		                  {% endfor %}
-		                  <br><br><br>
-                    <a href="../books/{{ book.filename|urlencode }}.txt" target="_blank" rel="noopener noreferrer">Читать</a>
+        <div class="container">
+          <div class="row">
+            {% for book in books %}
+              <div class="col">
+                <div class="card mb-3" style="max-width: 540px;">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="../images/{{ book.image_url|urlencode }}" class="card-img" alt={{ book.filename }}>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ book.filename }}</h5>
+                        <p class="card-text">{{ book.author }}</p>
+		                      {% for genre in book.genres %}
+		                        <span class="badge badge-secondary">{{ genre }}</span>
+		                      {% endfor %}
+		                      <br><br><br>
+                        <a href="../books/{{ book.filename|urlencode }}.txt" target="_blank" rel="noopener noreferrer">Читать</a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            {% endfor %}
           </div>
-        {% endfor %}
         </div>
-      </div>
       {% endfor %}
     </div>
   </body>
