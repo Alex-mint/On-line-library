@@ -3,6 +3,7 @@ from more_itertools import chunked
 from livereload import Server
 import pathlib
 import json
+import math
 
 
 def on_reload():
@@ -14,9 +15,17 @@ def on_reload():
                       autoescape=select_autoescape(['html', 'xml']))
     template = env.get_template('template.html')
     pages_folder = 'pages'
-    for number, parsed_books in enumerate(list(chunked(parsed_books, 20)), 1):
+
+    per_page_books = 20
+    pages_amount = []
+    pages = math.ceil(len(parsed_books) / per_page_books)
+    for page in range(1, pages + 1):
+        pages_amount.append(page)
+    for number, parsed_books in enumerate(list(chunked(parsed_books, per_page_books)), 1):
         rendered_page = template.render(
-            parsed_books=list(chunked(parsed_books, 2))
+            parsed_books=list(chunked(parsed_books, 2)),
+            pages_amount=pages_amount,
+            current_page=number,
         )
         pathlib.Path(pages_folder).mkdir(parents=True, exist_ok=True)
         with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
