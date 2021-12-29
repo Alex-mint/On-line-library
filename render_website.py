@@ -18,12 +18,12 @@ def on_reload():
     pathlib.Path(pages_folder).mkdir(parents=True, exist_ok=True)
 
     amount_books_per_page = 20
-    amount_pages = math.ceil(len(parsed_books) / amount_books_per_page)
+    pages_amount = math.ceil(len(parsed_books) / amount_books_per_page)
     for number, books_per_page in enumerate(
             list(chunked(parsed_books, amount_books_per_page)), 1):
         rendered_page = template.render(
             books_per_page=list(chunked(books_per_page, 2)),
-            amount_pages=amount_pages,
+            pages_amount=pages_amount,
             current_page=number,
         )
         with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:

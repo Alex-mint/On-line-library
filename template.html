@@ -15,19 +15,19 @@
             <a class="page-link" href="../pages/index{{ current_page-1 }}.html" tabindex="-1" aria-disabled="true">Назад</a>
           </li>
 
-            {% for page_number in range(1, amount_pages + 1) %}
+            {% for page_number in range(1, pages_amount + 1) %}
 		          <li class="page-item {% if page_number == current_page %}active{% endif %}"><a class="page-link" href="../pages/index{{ page_number }}.html">{{ page_number }}</a></li>
             {% endfor %}
-            <li class="page-item {% if current_page == amount_pages %}disabled{% endif %}">
+            <li class="page-item {% if current_page == pages_amount %}disabled{% endif %}">
               <a class="page-link" href="../pages/index{{ current_page+1 }}.html" tabindex="-1" aria-disabled="true">Вперёд</a>
             </li>
         </ul>
       </nav>
 
-      {% for books in books_per_page %}
+      {% for part_of_books in books_per_page %}
         <div class="container mt-5">
           <div class="row">
-            {% for book in books %}
+            {% for book in part_of_books %}
               <div class="col">
                 <div class="card mb-3" style="max-width: 540px;">
                   <div class="row no-gutters">
