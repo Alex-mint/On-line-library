@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Hello, world!</title>
+    <title>Онлайн-библиотека</title>
 		<link rel="icon" href="../favicon.png">
   </head>
   <body>
@@ -15,10 +15,10 @@
             <a class="page-link" href="../pages/index{{ current_page-1 }}.html" tabindex="-1" aria-disabled="true">Назад</a>
           </li>
 
-            {% for page_number in pages_nambers %}
+            {% for page_number in pages_numbers %}
 		          <li class="page-item {% if page_number == current_page %}active{% endif %}"><a class="page-link" href="../pages/index{{ page_number }}.html">{{ page_number }}</a></li>
             {% endfor %}
-            <li class="page-item {% if current_page == pages_nambers[-1] %}disabled{% endif %}">
+            <li class="page-item {% if current_page == pages_numbers[-1] %}disabled{% endif %}">
               <a class="page-link" href="../pages/index{{ current_page+1 }}.html" tabindex="-1" aria-disabled="true">Вперёд</a>
             </li>
         </ul>
