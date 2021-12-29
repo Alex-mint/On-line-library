@@ -7,7 +7,6 @@ import math
 
 
 def on_reload():
-
     with open('description.json', 'r', encoding="utf-8") as my_file:
         parsed_books = json.load(my_file)
 
@@ -20,11 +19,11 @@ def on_reload():
 
     amount_books_per_page = 20
     pages = math.ceil(len(parsed_books) / amount_books_per_page)
-    pages_numbers = list(range(1, pages + 1))
-    for number, books_per_page in enumerate(list(chunked(parsed_books, amount_books_per_page)), 1):
+    for number, books_per_page in enumerate(
+            list(chunked(parsed_books, amount_books_per_page)), 1):
         rendered_page = template.render(
             books_per_page=list(chunked(books_per_page, 2)),
-            pages_numbers=pages_numbers,
+            pages_numbers=[page_number for page_number in range(1, pages + 1)],
             current_page=number,
         )
         with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
@@ -37,5 +36,3 @@ if __name__ == '__main__':
     server = Server()
     server.watch('template.html', on_reload)
     server.serve(root='.')
-
-
