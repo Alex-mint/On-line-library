@@ -7,13 +7,16 @@ import math
 
 
 def on_reload():
+
     with open('description.json', 'r', encoding="utf-8") as my_file:
         parsed_books = json.load(my_file)
 
     env = Environment(loader=FileSystemLoader('.'),
                       autoescape=select_autoescape(['html', 'xml']))
     template = env.get_template('template.html')
+
     pages_folder = 'pages'
+    pathlib.Path(pages_folder).mkdir(parents=True, exist_ok=True)
 
     amount_books_per_page = 20
     pages = math.ceil(len(parsed_books) / amount_books_per_page)
@@ -24,13 +27,15 @@ def on_reload():
             pages_numbers=pages_numbers,
             current_page=number,
         )
-        pathlib.Path(pages_folder).mkdir(parents=True, exist_ok=True)
         with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
             file.write(rendered_page)
-on_reload()
 
-server = Server()
-server.watch('template.html', on_reload)
-server.serve(root='.')
+
+if __name__ == '__main__':
+    on_reload()
+
+    server = Server()
+    server.watch('template.html', on_reload)
+    server.serve(root='.')
 
 
