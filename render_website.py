@@ -16,21 +16,20 @@ def on_reload():
     template = env.get_template('template.html')
     pages_folder = 'pages'
 
-    per_page_books = 20
-    pages_amount = []
-    pages = math.ceil(len(parsed_books) / per_page_books)
+    amount_books_per_page = 20
+    pages_nambers = []
+    pages = math.ceil(len(parsed_books) / amount_books_per_page)
     for page in range(1, pages + 1):
-        pages_amount.append(page)
-    for number, parsed_books in enumerate(list(chunked(parsed_books, per_page_books)), 1):
+        pages_nambers.append(page)
+    for number, books_per_page in enumerate(list(chunked(parsed_books, amount_books_per_page)), 1):
         rendered_page = template.render(
-            parsed_books=list(chunked(parsed_books, 2)),
-            pages_amount=pages_amount,
+            books_per_page=list(chunked(books_per_page, 2)),
+            pages_nambers=pages_nambers,
             current_page=number,
         )
         pathlib.Path(pages_folder).mkdir(parents=True, exist_ok=True)
         with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
             file.write(rendered_page)
-
 on_reload()
 
 server = Server()
